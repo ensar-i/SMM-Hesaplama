@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMM Pro</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-color: #ffffff;
+            --accent-color: #2c3e50;
+            --text-color: #333;
+            --result-bg: #f8f9fa;
+            --border-color: #ced4da;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .container { max-width: 950px; margin: 0 auto; }
+
+        .sutunlar { display: flex; gap: 20px; flex-wrap: wrap; }
+        .sutun { 
+            flex: 1; min-width: 320px; 
+            background: var(--card-color); 
+            padding: 25px; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        input, select {
+            margin: 10px 0 20px 0;
+            padding: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        /* Küçük input için özel ayar */
+        .input-small {
+            width: 70px !important;
+            display: inline-block !important;
+            margin: 0 !important;
+            text-align: center;
+        }
+
+        .flex-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        label { font-weight: 600; font-size: 14px; color: #555; }
+
+        .sonuc-panel { margin-top: 15px; }
+        .sonuc-row {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 10px;
+        }
+
+        .value-box {
+            min-width: 130px; padding: 10px;
+            background: var(--result-bg);
+            border-left: 4px solid var(--accent-color);
+            text-align: right; font-family: 'Courier New', monospace;
+            font-weight: bold; border-radius: 4px;
+        }
+
+        .net-box {
+            background: var(--accent-color) !important;
+            color: white; border: none; font-size: 18px;
+        }
+
+        .hidden { display: none; }
+
+        .tema-secici {
+            margin-top: 30px; text-align: center;
+            background: var(--card-color); padding: 15px; border-radius: 12px;
+        }
+
+        .renk-dot {
+            width: 25px; height: 25px; border-radius: 50%;
+            display: inline-block; margin: 0 5px; cursor: pointer;
+            border: 2px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a1a; --card-color: #2d2d2d;
+            --text-color: #eee; --result-bg: #3d3d3d; --border-color: #444;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: #fff; padding: 0; }
+            .sutun { box-shadow: none; border: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="makbuzTablo">
+    <header style="margin-bottom: 25px; border-bottom: 3px solid var(--accent-color); padding-bottom: 10px;">
+        <h1 style="margin: 0; color: var(--accent-color);">SERBEST MESLEK MAKBUZU HESAPLAMA</h1>
+        <p style="margin: 10px 0; opacity: 0.9;">ÖZELLİKLE AVUKATLAR İÇİN</p>
+    </header>
+
+    <div class="sutunlar">
+        <div class="sutun">
+            <label>TARİH</label>
+            <input type="date" id="tarih">
+
+            <label>MÜŞTERİ ÜNVANI</label>
+            <input type="text" id="musteri" placeholder="İsim giriniz..." oninput="autoSave()">
+
+            <label>BRÜT TUTAR (K.D.V. DAHİL)</label>
+            <input type="text" id="brut" placeholder="0,00" oninput="formatAndCalc()" style="font-size: 20px; font-weight: bold; border-color: var(--accent-color);">
+			<small class="info-text">(Brüt tutar için AAÜT'de yazılı maktu tutarı veya ilamda hükmedilen tutarı giriebilirsiniz.)</small>
+
+            <div class="sonuc-panel">
+                <div class="sonuc-row">
+                    <span>MATRAH (K.D.V. HARİÇ)</span>
+                    <span id="res_matrah" class="value-box">0,00</span>
+                </div>
+                <div class="sonuc-row">
+                    <span>K.D.V. TUTARI</span>
+                    <span id="res_kdv" class="value-box">0,00</span>
+                </div>
+                <div id="row_tevkifat" class="sonuc-row hidden">
+                    <span id="tevkifat_label">TEVKİFAT</span>
+                    <span id="res_tevkifat" class="value-box">0,00</span>
+                </div>
+                <div id="row_stopaj" class="sonuc-row">
+                    <span>STOPAJ KESİNTİSİ</span>
+                    <span id="res_stopaj" class="value-box">0,00</span>
+                </div>
+                <div class="sonuc-row" style="margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 15px;">
+                    <strong style="color: var(--accent-color);">NET TAHSİLAT</strong>
+                    <span id="res_net" class="value-box net-box">0,00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sutun no-print">
+            <h3 style="margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px;">SEÇENEKLER</h3>
+            
+            <label>K.D.V. ORANI (%)</label>
+            <small class="info-text">(Güncel K.D.V. oranını girebilirsiniz. Varsayılan: %20)</small>
+			<input type="number" id="kdvOran" value="20" oninput="hesapla()">
+			
+
+            <label>K.D.V. TEVKİFATI</label>
+			<small class="info-text">(Kamu kurumları ve banka gibi gibi kurum ve şirket adına düzenlenen SMM'lerde tevkifat yapılması zorunlu tutulmuştur. Varsayılan tevkifat oranı: 5/10)</small>
+            <select id="kdvDurum" onchange="uiGuncelle()">
+                <option value="yok">Tevkifat Yok</option>
+                <option value="var">Tevkifat Var</option>
+            </select>
+
+            <div id="tevkifatAyari" class="hidden">
+                <label>TEVKİFAT PAYI</label>
+                <div class="flex-row">
+                    <input type="number" id="tevkifatPay" value="5" min="1" max="10" oninput="hesapla()" class="input-small">
+                    <span style="font-weight: bold; font-size: 16px; color: #666;">/ 10</span>
+                </div>
+            </div>
+
+            <label>STOPAJ (G.V.) DURUMU</label>
+			<small class="info-text">(Kamu kurumları ile gelir/ kurumlar vergisi mükellefleri adına düzenlenecen SMM'lerde stopaj kesintisi yapılır. Varsayılan stopaj oranı: %20)</small>
+            <select id="stopajDurum" onchange="uiGuncelle()">
+                <option value="yok">Stopajsız</option>
+				<option value="var">Stopajlı</option>
+            </select>
+
+            <div id="stopajAyari">
+                <label>STOPAJ ORANI (%)</label>
+                <input type="number" id="stopajOran" value="20" oninput="hesapla()">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="window.print()" style="flex:1; padding: 12px; cursor: pointer; background: #555; color: #fff; border: none; border-radius: 8px; font-weight: bold;">YAZDIR</button>
+                <button onclick="pdfIndir()" style="flex:1; padding: 12px; cursor: pointer; background: var(--accent-color); color: #fff; border: none; border-radius: 8px; font-weight: bold;">PDF İNDİR</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tema-secici no-print">
+        <strong>Görünüm:</strong> 
+        <span class="renk-dot" style="background: #2c3e50;" onclick="setTheme('#2c3e50')"></span>
+        <span class="renk-dot" style="background: #1e88e5;" onclick="setTheme('#1e88e5')"></span>
+        <span class="renk-dot" style="background: #2e7d32;" onclick="setTheme('#2e7d32')"></span>
+        <span class="renk-dot" style="background: #d81b60;" onclick="setTheme('#d81b60')"></span>
+        <button onclick="toggleDark()" style="margin-left: 15px; padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #ccc; background: #fff;">Gece Modu</button>
+        <p style="font-size: 16px; color: #888; margin-top: 15px;">Bu hesaplama bilgilendirme amaçlıdır. Hesaplamaların güncelliği ve doğruluğu resmî olarak teyit edilmelidir.</p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    function uiGuncelle() {
+        const stopajVar = document.getElementById("stopajDurum").value === "var";
+        const tevkifatVar = document.getElementById("kdvDurum").value === "var";
+
+        document.getElementById("stopajAyari").className = stopajVar ? "" : "hidden";
+        document.getElementById("row_stopaj").className = stopajVar ? "sonuc-row" : "sonuc-row hidden";
+
+        document.getElementById("tevkifatAyari").className = tevkifatVar ? "" : "hidden";
+        document.getElementById("row_tevkifat").className = tevkifatVar ? "sonuc-row" : "sonuc-row hidden";
+        
+        hesapla();
+    }
+
+    function formatMoney(num) {
+        return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num);
+    }
+
+    function formatAndCalc() {
+        let input = document.getElementById("brut");
+        let val = input.value.replace(/\D/g, "");
+        if (val !== "") {
+            input.value = (parseFloat(val) / 100).toLocaleString('tr-TR', { minimumFractionDigits: 2 });
+        }
+        hesapla();
+    }
+
+    function hesapla() {
+        let brut = parseFloat(document.getElementById("brut").value.replace(/\./g, "").replace(",", ".")) || 0;
+        let kdvOran = parseFloat(document.getElementById("kdvOran").value) || 0;
+        
+        let matrah = brut / (1 + (kdvOran / 100));
+        let kdv = brut - matrah;
+        
+        let tevkifat = 0;
+        let stopaj = 0;
+
+        if (document.getElementById("kdvDurum").value === "var") {
+            let pay = parseFloat(document.getElementById("tevkifatPay").value) || 0;
+            tevkifat = kdv * (pay / 10);
+            document.getElementById("tevkifat_label").innerText = `TEVKİFAT (${pay}/10)`;
+        }
+
+        if (document.getElementById("stopajDurum").value === "var") {
+            let sOran = parseFloat(document.getElementById("stopajOran").value) || 0;
+            stopaj = matrah * (sOran / 100);
+        }
+
+        let net = brut - stopaj - tevkifat;
+
+        document.getElementById("res_matrah").innerText = formatMoney(matrah);
+        document.getElementById("res_kdv").innerText = formatMoney(kdv);
+        document.getElementById("res_tevkifat").innerText = formatMoney(tevkifat);
+        document.getElementById("res_stopaj").innerText = formatMoney(stopaj);
+        document.getElementById("res_net").innerText = formatMoney(net);
+    }
+
+    function pdfIndir() {
+        const element = document.getElementById("makbuzTablo");
+        const musteri = document.getElementById("musteri").value || "SMM";
+        html2pdf().set({
+            margin: 10, filename: 'Makbuz_' + musteri + '.pdf',
+            image: { type: 'jpeg', quality: 0.99 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(element).save();
+    }
+
+    function setTheme(color) {
+        document.documentElement.style.setProperty("--accent-color", color);
+        localStorage.setItem("smm-theme", color);
+    }
+
+    function toggleDark() {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("smm-dark", document.body.classList.contains("dark-mode"));
+    }
+
+    function autoSave() {
+        localStorage.setItem("smm-musteri", document.getElementById("musteri").value);
+    }
+
+    window.onload = () => {
+        document.getElementById("tarih").value = new Date().toISOString().split("T")[0];
+        document.getElementById("musteri").value = localStorage.getItem("smm-musteri") || "";
+        if(localStorage.getItem("smm-theme")) setTheme(localStorage.getItem("smm-theme"));
+        if(localStorage.getItem("smm-dark") === "true") document.body.classList.add("dark-mode");
+        uiGuncelle();
+    };
+</script>
+
+</body>
+</html>
