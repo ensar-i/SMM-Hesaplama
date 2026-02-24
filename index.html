@@ -185,7 +185,6 @@
 
             <div style="display: flex; gap: 10px; margin-top: 20px;">
                 <button onclick="window.print()" style="flex:1; padding: 12px; cursor: pointer; background: #555; color: #fff; border: none; border-radius: 8px; font-weight: bold;">YAZDIR</button>
-                <button onclick="pdfIndir()" style="flex:1; padding: 12px; cursor: pointer; background: var(--accent-color); color: #fff; border: none; border-radius: 8px; font-weight: bold;">PDF İNDİR</button>
             </div>
         </div>
     </div>
@@ -257,17 +256,6 @@
         document.getElementById("res_tevkifat").innerText = formatMoney(tevkifat);
         document.getElementById("res_stopaj").innerText = formatMoney(stopaj);
         document.getElementById("res_net").innerText = formatMoney(net);
-    }
-
-    function pdfIndir() {
-        const element = document.getElementById("makbuzTablo");
-        const musteri = document.getElementById("musteri").value || "SMM";
-        html2pdf().set({
-            margin: 10, filename: 'Makbuz_' + musteri + '.pdf',
-            image: { type: 'jpeg', quality: 0.99 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).from(element).save();
     }
 
     function setTheme(color) {
