@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="google-site-verification" content="LU-1lhM4pSTDLKlZqp0ZvLoZuRCq7JuAEBbdwfKG7E8" />
-    <title>SMM Pro</title>
+    <title>Serbest Meslek Makbuzu Hesaplama</title>
     <style>
         :root {
             --bg-color: #f0f2f5;
@@ -43,7 +43,6 @@
             font-size: 15px;
         }
 
-        /* Küçük input için özel ayar */
         .input-small {
             width: 70px !important;
             display: inline-block !important;
@@ -110,7 +109,7 @@
 <div class="container" id="makbuzTablo">
     <header style="margin-bottom: 25px; border-bottom: 3px solid var(--accent-color); padding-bottom: 10px;">
         <h1 style="margin: 0; color: var(--accent-color);">SERBEST MESLEK MAKBUZU HESAPLAMA</h1>
-        <p style="margin: 10px 0; opacity: 0.9;">ÖZELLİKLE AVUKATLAR İÇİN</p>
+        <p style="margin: 10px 0; opacity: 0.9;">ÖZELLİKLE AVUKATLAR VE KURUMLAR İÇİN</p>
     </header>
 
     <div class="sutunlar">
@@ -118,12 +117,12 @@
             <label>TARİH</label>
             <input type="date" id="tarih">
 
-            <label>MÜŞTERİ ÜNVANI</label>
+            <label>ÜNVANI</label>
             <input type="text" id="musteri" placeholder="İsim giriniz..." oninput="autoSave()">
 
             <label>BRÜT TUTAR (K.D.V. DAHİL)</label>
             <input type="text" id="brut" placeholder="0,00" oninput="formatAndCalc()" style="font-size: 20px; font-weight: bold; border-color: var(--accent-color);">
-			<small class="info-text">(Brüt tutar için AAÜT'de yazılı maktu tutarı veya ilamda hükmedilen tutarı giriebilirsiniz.)</small>
+			<small class="info-text">(Brüt tutar için AAÜT'de yazılı maktu tutarı veya ilamda hükmedilen tutarı girebilirsiniz.)</small>
 
             <div class="sonuc-panel">
                 <div class="sonuc-row">
@@ -173,7 +172,7 @@
             </div>
 
             <label>STOPAJ (G.V.) DURUMU</label>
-			<small class="info-text">(Kamu kurumları ile gelir/ kurumlar vergisi mükellefleri adına düzenlenecen SMM'lerde stopaj kesintisi yapılır. Varsayılan stopaj oranı: %20)</small>
+			<small class="info-text">(Kamu kurumları ile gelir veya kurumlar vergisi mükellefleri adına düzenlenecen SMM'lerde stopaj kesintisi yapılır. Varsayılan stopaj oranı: %20)</small>
             <select id="stopajDurum" onchange="uiGuncelle()">
                 <option value="yok">Stopajsız</option>
 				<option value="var">Stopajlı</option>
@@ -197,7 +196,7 @@
         <span class="renk-dot" style="background: #2e7d32;" onclick="setTheme('#2e7d32')"></span>
         <span class="renk-dot" style="background: #d81b60;" onclick="setTheme('#d81b60')"></span>
         <button onclick="toggleDark()" style="margin-left: 15px; padding: 6px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #ccc; background: #fff;">Gece Modu</button>
-        <p style="font-size: 16px; color: #888; margin-top: 15px;">Bu hesaplama bilgilendirme amaçlıdır. Hesaplamaların güncelliği ve doğruluğu resmî olarak teyit edilmelidir.</p>
+        <p style="font-size: 16px; color: #888; margin-top: 15px;">Bu hesaplama bilgilendirme amaçlıdır. Hesaplamaların güncelliği ve doğruluğu kontrol edilmelidir.</p>
     </div>
 </div>
 
