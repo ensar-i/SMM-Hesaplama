@@ -164,6 +164,13 @@
             <label>ÜNVANI</label>
             <input type="text" id="musteri" placeholder="İsim giriniz..." oninput="autoSave()">
 
+			<label>AÇIKLAMA</label>
+			<textarea id="aciklama" 
+			    placeholder="SMM açıklamasını giriniz..."
+			    oninput="autoSave()"
+			    rows="4"
+			    style="width: 100%; box-sizing: border-box; resize: vertical; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 15px; margin: 10px 0 20px 0;"></textarea>
+
             <label>BRÜT TUTAR (K.D.V. DAHİL)</label>
             <small class="info-text">(Brüt tutar için AAÜT'de yazılı maktu tutarı veya ilamda hükmedilen tutarı girebilirsiniz.)</small>
 			<input type="text" id="brut" placeholder="0,00" oninput="formatAndCalc()" style="font-size: 20px; font-weight: bold; border-color: var(--accent-color);">
@@ -311,13 +318,14 @@
         localStorage.setItem("smm-dark", document.body.classList.contains("dark-mode"));
     }
 
-    function autoSave() {
-        localStorage.setItem("smm-musteri", document.getElementById("musteri").value);
-    }
+	  function autoSave() {
+	    localStorage.setItem("smm-musteri", document.getElementById("musteri").value);
+	    localStorage.setItem("smm-aciklama", document.getElementById("aciklama").value);
+	}
 
     window.onload = () => {
-        document.getElementById("tarih").value = new Date().toISOString().split("T")[0];
         document.getElementById("musteri").value = localStorage.getItem("smm-musteri") || "";
+		document.getElementById("aciklama").value = localStorage.getItem("smm-aciklama") || "";
         if(localStorage.getItem("smm-theme")) setTheme(localStorage.getItem("smm-theme"));
         if(localStorage.getItem("smm-dark") === "true") document.body.classList.add("dark-mode");
         uiGuncelle();
