@@ -53,6 +53,21 @@
             font-size: 15px;
         }
 
+		textarea {
+		    margin: 10px 0 20px 0;
+		    padding: 12px;
+		    width: 100%;
+		    min-height: 90px;
+		    box-sizing: border-box;
+		    border: 1px solid var(--border-color);
+		    border-radius: 8px;
+		    font-size: 15px;
+		    font-family: 'Segoe UI', Arial, sans-serif;
+		    resize: vertical;
+		    background: var(--card-color);
+		    color: var(--text-color);
+		}
+		
         .input-small {
             width: 70px !important;
             display: inline-block !important;
@@ -165,11 +180,7 @@
             <input type="text" id="musteri" placeholder="İsim giriniz..." oninput="autoSave()">
 
 			<label>AÇIKLAMA</label>
-			<textarea id="aciklama" 
-			    placeholder="SMM açıklamasını giriniz..."
-			    oninput="autoSave()"
-			    rows="4"
-			    style="width: 100%; box-sizing: border-box; resize: vertical; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 15px; margin: 10px 0 20px 0;"></textarea>
+			<textarea id="aciklama" placeholder="SMM açıklamasını giriniz..." </textarea>
 
             <label>BRÜT TUTAR (K.D.V. DAHİL)</label>
             <small class="info-text">(Brüt tutar için AAÜT'de yazılı maktu tutarı veya ilamda hükmedilen tutarı girebilirsiniz.)</small>
