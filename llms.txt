@@ -1,0 +1,31 @@
+# Serbest Meslek Makbuzu Hesaplama
+
+> Özellikle avukatlar ve kurumlar için serbest meslek makbuzu hesaplama aracı.
+
+## Ana Sayfa
+
+- [Serbest Meslek Makbuzu Hesaplama](https://ensar-isik.github.io/smm-hesaplama/): Serbest meslek makbuzu için KDV, stopaj ve net tahsilat hesaplama aracı.
+
+## Araç Hakkında
+
+Bu araç, serbest meslek makbuzu hesaplamalarında kullanılmak üzere hazırlanmıştır.
+
+Kullanıcı tarafından girilen brüt tutar üzerinden:
+
+- KDV tutarı
+- Stopaj kesintisi
+- Net tahsilat
+
+hesaplanır.
+
+Araç özellikle avukatlar ve kurumlar tarafından kullanılabilecek şekilde tasarlanmıştır.
+
+## Kullanım
+
+Kullanıcı; tarih, ünvan, açıklama ve brüt tutar bilgilerini girerek hesaplama yapabilir. Ayrıca KDV, Tevkifat ve Stopaj oranlarını seçebilir.
+
+Brüt tutar için AAÜT'de yazılı maktu tutar veya ilamda hükmedilen tutar girilebilir.
+
+## Önemli Not
+
+Hesaplama sonuçları bilgilendirme amaçlıdır. Resmi işlemlerde kullanılamaz.
