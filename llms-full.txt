@@ -1,0 +1,43 @@
+# Serbest Meslek Makbuzu Hesaplama
+
+> Avukatlar ve diğer serbest meslek erbapları için serbest meslek makbuzu (SMM) hesaplama aracı.
+
+## Ana Sayfa
+
+- [Serbest Meslek Makbuzu Hesaplama](https://ensar-isik.github.io/smm-hesaplama/): Serbest meslek makbuzu hesaplaması yapmak için kullanılan ücretsiz çevrim içi hesaplama aracı.
+
+## Araç
+
+Serbest meslek makbuzu hesaplama aracı, kullanıcının girdiği tutar üzerinden serbest meslek makbuzuna ilişkin temel hesaplamaları yapar.
+
+Araç ile hesaplama sırasında ilgili tutara göre:
+
+- KDV tutarı
+- Gelir vergisi stopajı
+- Net tahsil edilecek tutar
+- Makbuzdaki temel tutarlar
+
+hesaplanabilir.
+
+## Kullanım Alanları
+
+Araç özellikle aşağıdaki kullanıcıların hesaplama ihtiyacına yöneliktir:
+
+- Avukatlar
+- Serbest meslek erbapları
+- Mali müşavirler
+- Hukuk büroları
+- Kamun kurumları ve idareler
+- Serbest meslek makbuzu düzenleyen kişiler
+- Serbest meslek makbuzu hesaplaması yapmak isteyen kişiler
+
+## Hesaplama
+
+Kullanıcı ilgili tutarı girerek hesaplama sonucunu görüntüleyebilir.
+
+Hesaplama sonuçları bilgilendirme amaçlıdır. Vergi oranları, mevzuat ve uygulamalar zaman içinde değişebileceğinden, resmi işlem öncesinde güncel mevzuat ve oranlar kontrol edilmelidir.
+
+## Kaynak
+
+- [Serbest Meslek Makbuzu Hesaplama Aracı](https://ensar-isik.github.io/smm-hesaplama/)
+
